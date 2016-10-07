@@ -15,26 +15,24 @@
 
 struct point
 {
-	int xPos;
-	int yPos;
-	int zPos;
+	double xPos;
+	double yPos;
+	double zPos;
 };
 
 struct sphere
 {
-	float radius;
-	int xPos;
-	int yPos;
-	int zPos;
+	double radius;
+	double xPos;
+	double yPos;
+	double zPos;
 };
 
 struct ray
 {
-	int xPos;
-	int yPos;
-	int zPos;
-	float xAngle;
-	float yAngle;
+	double xPos;
+	double yPos;
+	double zPos;
 };
 
 struct light
@@ -46,4 +44,5 @@ struct light
 };
 
 //-- Constant Values --//
-int maxDistance = 100;
+double maxDistance = 1;
+double planeZ = 300;

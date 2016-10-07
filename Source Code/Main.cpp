@@ -9,7 +9,7 @@ int main()
 {
 	cout << "This is a simple ray tracer program created for the Computer Graphics course at Sabanci University." << endl;
 
-	sf::RenderWindow mainWindow(sf::VideoMode(800, 600), "Ray - Tracer Version 1.1");
+	sf::RenderWindow mainWindow(sf::VideoMode(600, 600), "Ray - Tracer Version 1.1");
 
 	//-- Canvas and Temporary row Definition --//
 	vector<vector<sf::RectangleShape>> viewCanvas;
@@ -25,15 +25,16 @@ int main()
 	vector<sphere> spheresVect;
 	
 	sphere mainSphere;
-	mainSphere.xPos = 0;
-	mainSphere.yPos = 0;
-	mainSphere.zPos = 150;
+	mainSphere.xPos = 300;
+	mainSphere.yPos = 300;
+	mainSphere.zPos = 300;
+	mainSphere.radius = 100;
 	spheresVect.push_back(mainSphere);
 
 	point focalPoint;
-	focalPoint.xPos = 400;
+	focalPoint.xPos = 300;
 	focalPoint.yPos = 300;
-	focalPoint.zPos = -400;
+	focalPoint.zPos = 0;
 
 	light mainIllum;
 	mainIllum.xPos = 0;
@@ -41,7 +42,7 @@ int main()
 	mainIllum.zPos = 0;
 	mainIllum.brightness = 0.3;
 
-	int ambientLight = 0.09;
+	double ambientLight = 0.1;
 
 	//---------------------------//
 
@@ -51,7 +52,7 @@ int main()
 	//-- Perform the Ray tracing operation updating the user of the execution progress --//
 	for (int i = 0; i < 600; i++)
 	{
-		for (int j = 0; j < 800; j++)
+		for (int j = 0; j < 600; j++)
 		{
 			blackPixel.setPosition(j, i);
 
@@ -59,7 +60,7 @@ int main()
 			ray newRay;
 			newRay.xPos = j*maxDistance;
 			newRay.yPos = i*maxDistance;
-			newRay.zPos = 0*maxDistance;
+			newRay.zPos = (planeZ)*maxDistance;
 
 			//-- Calculate if the ray collides with any of the objects --//
 			//-- We check all the possible object matrices--//
@@ -67,17 +68,15 @@ int main()
 
 			for (int i = 0; i < spheresVect.size(); i++)
 			{
-				
+				if (spCollisionCheck(spheresVect[i], newRay, focalPoint) == true)
+				{
+					blackPixel.setFillColor(sf::Color(0,255*ambientLight,0));
+				}
 			}
 
-
-			
-		
-
-
-
-
 			tempRow.push_back(blackPixel);
+
+			blackPixel.setFillColor(sf::Color::Black);
 		}
 
 		viewCanvas.push_back(tempRow);
@@ -86,10 +85,7 @@ int main()
 
 	
 	//-- Logical operators and variables --//
-
-	
 	cout << "Ray Tracing Operation Completed in " << testCLK.getElapsedTime().asSeconds() << "Seconds." << endl;
-	system("PAUSE");
 
 	//-- Framerate Clock --//
 	sf::Clock fpsClock;
@@ -146,7 +142,7 @@ bool spCollisionCheck(sphere & subject, ray & testRay, point & focalPoint)
 
 	g -= 2 * (subject.xPos * testRay.xPos + subject.yPos * testRay.yPos + subject.zPos * testRay.zPos);
 
-	g -= pow(subject.radius, 2);
+	g -= pow(subject.radius * 1, 2);
 
 	//-- Result Calculation --//
 
