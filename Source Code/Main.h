@@ -7,9 +7,18 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <cmath>
+#include <algorithm>
 
 
 //-- Structures --//
+
+struct point
+{
+	int xPos;
+	int yPos;
+	int zPos;
+};
 
 struct sphere
 {
@@ -35,3 +44,6 @@ struct light
 	int zPos;
 	int brightness;
 };
+
+//-- Constant Values --//
+int maxDistance = 100;
