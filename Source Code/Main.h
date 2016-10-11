@@ -9,6 +9,7 @@
 #include <string>
 #include <cmath>
 #include <algorithm>
+#include <math.h>
 
 
 //-- Structures --//
@@ -26,23 +27,25 @@ struct sphere
 	double xPos;
 	double yPos;
 	double zPos;
-};
-
-struct ray
-{
-	double xPos;
-	double yPos;
-	double zPos;
+	sf::Color color;
 };
 
 struct light
 {
-	int xPos;
-	int yPos;
-	int zPos;
+	double xPos;
+	double yPos;
+	double zPos;
 	int brightness;
 };
 
+struct polygon
+{
+	point p1;
+	point p2;
+	point p3;
+};
+
 //-- Constant Values --//
-double maxDistance = 1;
-double planeZ = 300;
+double maxDistance = INT_MAX;
+double planeZ = 600;
+double ambientLight = 0.2;
